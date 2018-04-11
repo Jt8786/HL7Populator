@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B38284B3-77E5-4BBE-B88B-4D9D06D69214}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HL7Populator</RootNamespace>
+    <AssemblyName>HL7Populator</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="HL7Extensions.cs" />
+    <Compile Include="InboundSocket.cs" />
+    <Compile Include="MessageEvent.cs" />
+    <Compile Include="MessageGenerator.cs" />
+    <Compile Include="MessageProcessor.cs" />
+    <Compile Include="OutboundSocket.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Server.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HL7Populator.Core\HL7Populator.Core.csproj">
+      <Project>{3c8077ad-bb52-4c1f-a12f-7891db776d79}</Project>
+      <Name>HL7Populator.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HL7Populator.HL7\HL7Populator.HL7.csproj">
+      <Project>{0ea7d1f1-e280-4105-a57b-83aa93b368dc}</Project>
+      <Name>HL7Populator.HL7</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HL7Populator.Logging\HL7Populator.Logging.csproj">
+      <Project>{8c1513e2-85b7-49c4-922f-b16bdc3a4da1}</Project>
+      <Name>HL7Populator.Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HL7Populator.Network\HL7Populator.Network.csproj">
+      <Project>{aebd182a-0bba-43b6-8061-35b04c25c76e}</Project>
+      <Name>HL7Populator.Network</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
