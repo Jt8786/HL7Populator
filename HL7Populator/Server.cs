@@ -1,4 +1,5 @@
 ﻿using HL7Populator.Core;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -44,6 +45,15 @@ namespace HL7Populator
         {
             if (inboundSocket != null)
                 inboundSocket.Stop();
+        }
+
+        /// <summary>
+        /// Send an ADT-A08, ORM, and ORU for the specified number of patients
+        /// </summary>
+        /// <param name="count">Number of patients to send messages for</param>
+        public void SendMessagesForPatient(int count)
+        {
+            Task.Run(() => SendPatientMessages(count)).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -121,6 +131,20 @@ namespace HL7Populator
             {
                 await SendMessageAsync(MessageGenerator.GetResultMessageFromExam(exam)).ConfigureAwait(true);
             }
+        }
+
+        private async Task SendPatientMessages(int count)
+        {
+            var patients = Patient.GetRandomPatients(count);
+
+            foreach (var patient in patients)
+            {
+                await SendMessageAsync(MessageGenerator.GetMessageFromPatient(patient)).ConfigureAwait(true);
+                var exam = new Exam(patient);
+                await SendMessageAsync(MessageGenerator.GetMessageFromExam(exam)).ConfigureAwait(true);
+                await SendMessageAsync(MessageGenerator.GetResultMessageFromExam(exam)).ConfigureAwait(true);
+            }
+
         }
 
         private void MessageReceived(object sender, HL7.V2.MessageReceivedEventArgs e)
